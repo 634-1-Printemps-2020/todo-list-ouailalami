@@ -36,7 +36,14 @@ public class GestionnaireTache {
     }
 
     public void annulerTache(User user, Tache task){
-        
+
+        if (liste.get(user).contains(task)){
+            liste.get(user).get(liste.get(user).indexOf(task));
+            task.setStatus(Status.CANCELED);
+            task.setResolution(Resolution.IGNORED);
+        } else {
+            throw new IllegalArgumentException ("tache introuvable");
+        }
     }
 
     public void replanifierTache(){
