@@ -2,23 +2,23 @@ package Metier;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 public class Tache {
-    private String createur;
+    private User createur;
     private String description;
     private Date date;
-    private String status;
-    private String resolution;
+    private Status status;
+    private Resolution resolution;
 
-    public Tache(String createur, String description, Date date) {
+    public Tache(User createur, String description, Date date) {
         this.createur = createur;
         this.description = description;
         this.date = date;
-        this.status = "Open";
-        this.resolution = " ";
+        this.status = Status.OPEN;
     }
 
-    public String getCreateur() {
+    public User getCreateur() {
         return createur;
     }
 
@@ -42,21 +42,37 @@ public class Tache {
 //        this.date = date;
 //    }
 
-    public String getStatus() {
+
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
-    public String getResolution() {
+    public Resolution getResolution() {
         return resolution;
     }
 
-    public void setResolution(String resolution) {
+    public void setResolution(Resolution resolution) {
         this.resolution = resolution;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tache tache = (Tache) o;
+        return Objects.equals(createur, tache.createur) &&
+                Objects.equals(description, tache.description) &&
+                Objects.equals(date, tache.date) &&
+                status == tache.status &&
+                resolution == tache.resolution;
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(createur, description, date, status, resolution);
+    }
 }

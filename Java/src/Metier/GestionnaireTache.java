@@ -1,37 +1,47 @@
 package Metier;
 import Metier.Tache;
+import javafx.concurrent.Task;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 
 public class GestionnaireTache {
-    private ArrayList<Tache> liste = new ArrayList<Tache>();
+    private Map<User, List<Tache>> liste = new HashMap<User, List<Tache>>();
 
     public GestionnaireTache(){
 
     }
 
-    public void creerTache(String createur, String description, Date date){
+    public void creerTache(User createur, Tache task){
 //        SimpleDateFormat formater;
-        Date aujourdhui = new Date();
+//        Date aujourdhui = new Date();
 //        formater = new SimpleDateFormat("dd/MM/yy");
-        if (date.compareTo(aujourdhui) >= 0 ) {
-            Tache tache = new Tache(createur, description, date);
-            liste.add(tache);
+//        if (date.compareTo(aujourdhui) >= 0 ) {
+//            Tache tache = new Tache(createur, description, date);
+//            liste.add(tache);
+//        }
+//        else{
+//            System.out.println("date erreur");
+//        }
+
+        if (!liste.containsKey(createur)){
+            List<Tache> listeTache = new ArrayList<>();
+            liste.put(createur, listeTache);
         }
-        else{
-            System.out.println("date erreur");
-        }
+        liste.get(createur).add(task);
     }
 
-    public void annulerTache(){
+    public List<Tache> getTaskUser(User user){
+        return liste.get(user);
+    }
 
+    public void annulerTache(User user, Tache task){
+        
     }
 
     public void replanifierTache(){
 
     }
 
-    public ArrayList<Tache> afficherListe(){return liste;}
+    public Map<User, List<Tache>> afficherListe(){return liste;}
 }
